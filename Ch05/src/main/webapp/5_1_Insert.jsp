@@ -13,6 +13,8 @@
 <body>
 	<h3>1.insert 실습하기</h3>
 	
+	<a href="./5_2_Select.jsp">직원목록</a>
+	
 	<h4>직원등록</h4>
 	<form action="./proc/insertProc.jsp" method="post">
 		<table border="1">
