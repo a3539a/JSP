@@ -6,29 +6,10 @@
     <title>회원가입</title>
     <link rel="stylesheet" href="/JBoard1/css/style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">
-    	$(function(){
-    		
-    		$('input[name=uid]').focusout(function(){
-    			
-    			var uid = $(this).val();
-    			var param = {'uid':uid};
-    			
-    			$.ajax({
-    				url: '/JBoard1/user/proc/checkUid.jsp',
-    				type: 'get',
-    				data: param,
-    				datatype: 'json',
-    				success: function(data){
-    					alert(data.result);
-    				}
-    			});
-    			
-    		});
-    		
-    	});
-    
-    </script>
+    <script type="text/javascript" src = "/JBoard1/js/checkUid.js"></script>
+    <script type="text/javascript" src = "/JBoard1/js/checkNick.js"></script>
+    <script type="text/javascript" src = "/JBoard1/js/checkEmail.js"></script>
+    <script type="text/javascript" src = "/JBoard1/js/checkHp.js"></script>
     
 </head>
 <body>
@@ -78,12 +59,14 @@
                         <td>E-Mail</td>
                         <td>
                             <input type="email" name="email" placeholder="이메일 입력"/>
+                            <span class="resultEmail"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>휴대폰</td>
                         <td>
-                            <input type="text" name="hp" placeholder="- 포함 13자리 입력" minlength="13" maxlength="13" />
+                            <input type="text" name="hp" placeholder="- 포함 13자리 입력" minlength="13" maxlength="13" />                            <span class="resultPass"></span>
+                            <span class="resultHp"></span>
                         </td>
                     </tr>
                     <tr>
