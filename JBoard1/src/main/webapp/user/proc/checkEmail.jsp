@@ -1,3 +1,4 @@
+<%@page import="kr.co.jboard1.db.DBConfig"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -10,19 +11,11 @@
 	
 	String email = request.getParameter("email");
 
-	// DB정보
-	String host = "jdbc:mysql://13.125.215.69:3306/a3539a";
-	String user = "a3539a";
-	String pass = "1234";
-	
 	int count = -1;
 	
 	try{
-		// 1단계
-		Class.forName("com.mysql.jdbc.Driver");
-		
-		// 2단계
-		Connection conn = DriverManager.getConnection(host, user, pass);
+		// 1,2단계
+		Connection conn = DBConfig.getInstance().getConnection();
 		
 		// 3단계
 		Statement stmt = conn.createStatement();
