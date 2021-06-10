@@ -1,3 +1,5 @@
+<%@page import="kr.co.jboard1.db.Sql"%>
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="kr.co.jboard1.db.DBConfig"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="java.sql.ResultSet"%>
@@ -18,11 +20,12 @@
 		Connection conn = DBConfig.getInstance().getConnection();
 		
 		// 3단계
-		Statement stmt = conn.createStatement();
-		
+		PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COUNT_HP);
+		psmt.setString(1, hp);
+
 		// 4단계
-		String sql = "SELECT COUNT(`hp`) FROM `JBOARD_MEMBER` WHERE `hp`='"+hp+"';";
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = psmt.executeQuery();
+
 		
 		// 5단계
 		if(rs.next()){
