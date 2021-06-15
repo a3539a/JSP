@@ -37,6 +37,8 @@ public class Sql {
 												+ "ORDER BY `seq` DESC "
 												+ "LIMIT ?, 10";
 	
+	public static final String SELECT_FILE = "SELECT * FROM `JBOARD_FILE` WHERE `seq`=?";
+	
 	public static final String INSERT_ARTICLE  = "INSERT INTO `JBOARD_ARTICLE` SET "
 											   + "`title`=?,"
 											   + "`content`=?,"
@@ -52,6 +54,8 @@ public class Sql {
 												+ "`rdate`=NOW();";
 
 	public static final String UPDATE_ARTICLE_HIT = "UPDATE `JBOARD_ARTICLE` SET `hit` = `hit`+1 WHERE `seq` = ?";
+
+	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `JBOARD_FILE` SET `download` = `download`+1 WHERE `seq` = ?";
 
 
 }		
