@@ -26,7 +26,10 @@ public class Sql {
 	
 	public static final String SELECT_COUNT_ARTICLE = "SELECT COUNT(*) FROM `JBOARD_ARTICLE`";
 	
-	public static final String SELECT_ARTICLE = "SELECT * FROM `JBOARD_ARTICLE` WHERE `seq`=?";
+	public static final String SELECT_ARTICLE = "SELECT * FROM `JBOARD_ARTICLE` AS a "
+												+ "LEFT JOIN `JBOARD_FILE` AS b "
+												+ "ON a.seq = b.parent "
+												+ "WHERE a.`seq`=?";
 	
 	public static final String SELECT_ARTICLES = "SELECT a.*, b.`nick` FROM `JBOARD_ARTICLE` AS a "
 												+ "JOIN `JBOARD_MEMBER` AS b "
@@ -48,6 +51,7 @@ public class Sql {
 												+ "`newName`=?,"
 												+ "`rdate`=NOW();";
 
+	public static final String UPDATE_ARTICLE_HIT = "UPDATE `JBOARD_ARTICLE` SET `hit` = `hit`+1 WHERE `seq` = ?";
 
 
 }		
