@@ -3,10 +3,15 @@ package kr.co.jboard1.db;
 public class Sql {
 	
 	public static final String SELECT_COUNT_EMAIL = "SELECT COUNT(`email`) FROM `JBOARD_MEMBER` WHERE `email`=?;";
+	
 	public static final String SELECT_COUNT_HP = "SELECT COUNT(`hp`) FROM `JBOARD_MEMBER` WHERE `hp`=?;";
+	
 	public static final String SELECT_COUNT_NICK = "SELECT COUNT(`nick`) FROM `JBOARD_MEMBER` WHERE `nick`=?;";
+	
 	public static final String SELECT_COUNT_UID = "SELECT COUNT(`uid`) FROM `JBOARD_MEMBER` WHERE `uid`=?;";
+	
 	public static final String SELECT_MEMBER = "SELECT * FROM `JBOARD_MEMBER` WHERE `uid`=? AND `pass`=PASSWORD(?);";
+	
 	public static final String INSERT_MEMBER  = "INSERT INTO `JBOARD_MEMBER` SET "
 											   + "`uid`=?,"
 											   + "`pass`=PASSWORD(?),"
@@ -37,6 +42,12 @@ public class Sql {
 												+ "ORDER BY `seq` DESC "
 												+ "LIMIT ?, 10";
 	
+	public static final String SELECT_COMMENTS = "SELECT a.*, b.nick FROM `JBOARD_ARTICLE` AS a "
+												+ "JOIN `JBOARD_MEMBER` AS b "
+												+ "ON a.uid = b.uid "
+												+ "WHERE `parent` = ? "
+												+ "ORDER BY `seq` ASC";
+	
 	public static final String SELECT_FILE = "SELECT * FROM `JBOARD_FILE` WHERE `seq`=?";
 	
 	public static final String INSERT_ARTICLE  = "INSERT INTO `JBOARD_ARTICLE` SET "
@@ -46,6 +57,13 @@ public class Sql {
 											   + "`uid`=?,"
 											   + "`regip`=?,"
 											   + "`rdate`=NOW();";
+	
+	public static final String INSERT_COMMENT = "INSERT INTO `JBOARD_ARTICLE` SET "
+												+ "`parent`=?, "
+												+ "`content`=?, "
+												+ "`uid`=?, "
+												+ "`regip`=?, "
+												+ "`rdate`=NOW()";
 	
 	public static final String INSERT_FILE = "INSERT INTO `JBOARD_FILE` SET"
 												+ "`parent`=?,"
