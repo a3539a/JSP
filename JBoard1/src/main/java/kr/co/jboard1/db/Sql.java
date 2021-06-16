@@ -39,6 +39,7 @@ public class Sql {
 	public static final String SELECT_ARTICLES = "SELECT a.*, b.`nick` FROM `JBOARD_ARTICLE` AS a "
 												+ "JOIN `JBOARD_MEMBER` AS b "
 												+ "ON a.uid = b.uid "
+												+ "WHERE `parent` = 0 "
 												+ "ORDER BY `seq` DESC "
 												+ "LIMIT ?, 10";
 	
@@ -73,7 +74,11 @@ public class Sql {
 
 	public static final String UPDATE_ARTICLE_HIT = "UPDATE `JBOARD_ARTICLE` SET `hit` = `hit`+1 WHERE `seq` = ?";
 
+	public static final String UPDATE_COMMENT_NUM = "UPDATE `JBOARD_ARTICLE` SET `comment` = `comment`+1 WHERE `seq` = ?";
+
 	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `JBOARD_FILE` SET `download` = `download`+1 WHERE `seq` = ?";
 
-
+	public static final String DELETE_COMMENT = "DELETE FROM `JBOARD_ARTICLE` WHERE `seq`=?";
+	
+	
 }		
