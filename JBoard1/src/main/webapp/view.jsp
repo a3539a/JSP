@@ -68,7 +68,7 @@
     					
     				});
     				
-    			}
+    			} 
     			
     			$(this).prev().remove();
     			
