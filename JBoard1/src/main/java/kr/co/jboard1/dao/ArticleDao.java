@@ -293,7 +293,22 @@ public class ArticleDao {
 		return fb;
 	}
 	
-	public void updateArticle() {}
+	public void updateArticle(String title, String content, String seq) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE);
+			psmt.setString(1, title);
+			psmt.setString(2, content);
+			psmt.setString(3, seq);
+			
+			psmt.executeUpdate();
+			
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void updateArticleHit(String seq) {
 		
@@ -318,6 +333,35 @@ public class ArticleDao {
 		
 	}
 	
+	public void updateCommentCount(String seq, int type) {
+
+		try{
+			PreparedStatement psmt = null;
+			
+			// 1,2단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			// 3단계
+			if(type == 1) {
+				psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_PLUS);
+			}else {
+				psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_MINUS);
+			}
+			psmt.setString(1, seq);
+			
+			// 4단계
+			psmt.executeUpdate();
+			
+			// 5단계
+			// 6단계
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+
 	public void updateFileDownload(String seq) {
 		
 		try{
@@ -340,7 +384,28 @@ public class ArticleDao {
 		}
 	}
 	
-	public void deleteArticle() {}
+	public void deleteArticle(String seq) {
+
+		try{
+			// 1,2단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			// 3단계
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_ARTICLE);
+			psmt.setString(1, seq);
+			psmt.setString(2, seq);
+			
+			// 4단계
+			psmt.executeUpdate();
+			
+			// 5단계
+			// 6단계
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	public void deleteComment(String seq) {
 		

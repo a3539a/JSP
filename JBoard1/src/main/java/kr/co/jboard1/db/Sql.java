@@ -29,7 +29,7 @@ public class Sql {
 
 	public static final String SELECT_MAX_SEQ = "SELECT MAX(`seq`) FROM `JBOARD_ARTICLE`;";
 	
-	public static final String SELECT_COUNT_ARTICLE = "SELECT COUNT(*) FROM `JBOARD_ARTICLE`";
+	public static final String SELECT_COUNT_ARTICLE = "SELECT COUNT(*) FROM `JBOARD_ARTICLE` WHERE `parent`=0";
 	
 	public static final String SELECT_ARTICLE = "SELECT * FROM `JBOARD_ARTICLE` AS a "
 												+ "LEFT JOIN `JBOARD_FILE` AS b "
@@ -71,13 +71,22 @@ public class Sql {
 												+ "`oriName`=?,"
 												+ "`newName`=?,"
 												+ "`rdate`=NOW();";
-
+	
+	public static final String UPDATE_ARTICLE = "UPDATE `JBOARD_ARTICLE` SET "
+												+ "`title`=?, "
+												+ "`content`=? "
+												+ "WHERE `seq`=?";
+	
 	public static final String UPDATE_ARTICLE_HIT = "UPDATE `JBOARD_ARTICLE` SET `hit` = `hit`+1 WHERE `seq` = ?";
 
-	public static final String UPDATE_COMMENT_NUM = "UPDATE `JBOARD_ARTICLE` SET `comment` = `comment`+1 WHERE `seq` = ?";
+	public static final String UPDATE_COMMENT_PLUS = "UPDATE `JBOARD_ARTICLE` SET `comment` = `comment`+1 WHERE `seq` = ?";
+
+	public static final String UPDATE_COMMENT_MINUS = "UPDATE `JBOARD_ARTICLE` SET `comment` = `comment`-1 WHERE `seq` = ?";
 
 	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `JBOARD_FILE` SET `download` = `download`+1 WHERE `seq` = ?";
 
+	public static final String DELETE_ARTICLE = "DELETE FROM `JBOARD_ARTICLE` WHERE `seq`=? OR `parent`=?";
+	
 	public static final String DELETE_COMMENT = "DELETE FROM `JBOARD_ARTICLE` WHERE `seq`=?";
 	
 	
