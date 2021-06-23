@@ -1,7 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp" %>
+<script type="text/javascript" src = "/Farmstory1/js/checkUid.js"></script>
+<script type="text/javascript" src = "/Farmstory1/js/checkNick.js"></script>
+<script type="text/javascript" src = "/Farmstory1/js/checkEmail.js"></script>
+<script type="text/javascript" src = "/Farmstory1/js/checkHp.js"></script>
+<script type="text/javascript" src = "/Farmstory1/js/checkPass.js"></script>
+<script type="text/javascript" src = "/Farmstory1/js/checkName.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/Farmstory1/js/zipcode.js"></script>
+<script src="/Farmstory1/js/validation.js"></script>
+	
+	
 <section id="user" class="register">
-    <form action="#" method="POST">
+    <form id="regForm" action="/Farmstory1/user/proc/register.jsp" method="POST">
         <table border="1">
             <caption>사이트 이용정보 입력</caption>
             <tr>
@@ -30,7 +41,8 @@
             <tr>
                 <td>이름</td>
                 <td>
-                    <input type="text" name="name" placeholder="이름 입력"/>                            
+                    <input type="text" name="name" placeholder="이름 입력"/>
+                    <span class="resultName"></span>                            
                 </td>
             </tr>
             <tr>
@@ -45,26 +57,28 @@
                 <td>E-Mail</td>
                 <td>
                     <input type="email" name="email" placeholder="이메일 입력"/>
+                    <span class="resultEmail"></span>
                 </td>
             </tr>
             <tr>
                 <td>휴대폰</td>
                 <td>
                     <input type="text" name="hp" placeholder="- 포함 13자리 입력" minlength="13" maxlength="13" />
+                    <span class="resultHp"></span>
                 </td>
             </tr>
             <tr>
                 <td>주소</td>
                 <td>
                     <div>
-                        <input type="text" name="zip" placeholder="우편번호" readonly/>
-                        <button class="btnZip">주소검색</button>
+                        <input type="text" id="zip" name="zip" placeholder="우편번호" readonly/>
+                        <button type="button" class="btnZip" onclick="zipcode()">주소검색</button>
                     </div>                            
                     <div>
-                        <input type="text" name="addr1" placeholder="주소를 검색하세요." readonly/>
+                        <input type="text" id="addr1" name="addr1" placeholder="주소를 검색하세요." readonly/>
                     </div>
                     <div>
-                        <input type="text" name="addr2" placeholder="상세주소를 입력하세요."/>
+                        <input type="text" id="addr2" name="addr2" placeholder="상세주소를 입력하세요."/>
                     </div>
                 </td>
             </tr>

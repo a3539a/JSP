@@ -1,4 +1,8 @@
+<%@page import="kr.co.farmstory1.bean.MemberBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	MemberBean mb = (MemberBean) session.getAttribute("sessMember");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,21 +13,8 @@
     <link rel="stylesheet" href="/Farmstory1/css/style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>    
-    <script>
-        $(function(){
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-            $('.slider > ul').bxSlider({
-                slideWidth: 980,
-                pager: false,
-                controls: false,
-                auto: true
-            });
-
-            $('#tabs').tabs();
-
-        });
-    </script>
 
 </head>
 <body>
@@ -31,10 +22,16 @@
         <header>
             <a href="/Farmstory1/index.jsp" class="logo"><img src="/Farmstory1/img/logo.png" alt="로고"/></a>
             <p>
-                <a href="/Farmstory1">HOME |</a>
-                <a href="/Farmstory1/user/login.jsp">로그인 |</a>
-                <a href="/Farmstory1/user/terms.jsp">회원가입 |</a>
-                <a href="/Farmstory1/community/qna.jsp">고객센터</a>
+                <% if (mb == null){ %>
+                	<a href="/Farmstory1">HOME |</a>
+	                <a href="/Farmstory1/user/login.jsp">로그인 |</a>
+	                <a href="/Farmstory1/user/terms.jsp">회원가입 |</a>
+                <% }else{ %>
+                	<span><%= mb.getNick() %> 님 반갑습니다.</span>
+                	<a href="/Farmstory1">HOME |</a>
+                	<a href="/Farmstory1/user/proc/logout.jsp">로그아웃 |</a>
+                <% } %>
+                <a href="/Farmstory1/board/list.jsp?group=community&cate=qna">고객센터</a>
             </p>
             <img src="/Farmstory1/img/head_txt_img.png" alt="3만원 이상 무료배송"/>
             
