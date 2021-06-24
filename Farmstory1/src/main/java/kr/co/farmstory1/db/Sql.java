@@ -31,6 +31,18 @@ public class Sql {
 	
 	public static final String SELECT_COUNT_ARTICLE = "SELECT COUNT(*) FROM `JBOARD_ARTICLE` WHERE `parent`=0 AND `cate`=?";
 	
+	public static final String SELECT_LATESTS = "(SELECT * FROM `JBOARD_ARTICLE` WHERE `cate`= 'grow' AND `parent`=0 ORDER BY `seq` DESC LIMIT 5) "
+			+ "UNION "
+			+ "(SELECT * FROM `JBOARD_ARTICLE` WHERE `cate`= 'school' AND `parent`=0 ORDER BY `seq` DESC LIMIT 5) "
+			+ "UNION "
+			+ "(SELECT * FROM `JBOARD_ARTICLE` WHERE `cate`= 'story' AND `parent`=0 ORDER BY `seq` DESC LIMIT 5) "
+			+ "UNION "
+			+ "(SELECT * FROM `JBOARD_ARTICLE` WHERE `cate`= 'notice' AND `parent`=0 ORDER BY `seq` DESC LIMIT 3) "
+			+ "UNION "
+			+ "(SELECT * FROM `JBOARD_ARTICLE` WHERE `cate`= 'qna' AND `parent`=0 ORDER BY `seq` DESC LIMIT 3) "
+			+ "UNION "
+			+ "(SELECT * FROM `JBOARD_ARTICLE` WHERE `cate`= 'faq' AND `parent`=0 ORDER BY `seq` DESC LIMIT 3);";
+	
 	public static final String SELECT_ARTICLE = "SELECT * FROM `JBOARD_ARTICLE` AS a "
 												+ "LEFT JOIN `JBOARD_FILE` AS b "
 												+ "ON a.seq = b.parent "
