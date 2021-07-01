@@ -33,7 +33,7 @@
 			<th>${member.rdate.substring(2, 10)}</th>
 			<th>
 				<a href="/Ch08/member/modify.do?uid=${member.uid}">수정</a>
-				<a href="#">삭제</a>
+				<a href="/Ch08/member/delete.do?uid=${member.uid}">삭제</a>
 			</th>
 		</tr>
 		</c:forEach>

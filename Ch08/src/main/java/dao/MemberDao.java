@@ -143,5 +143,25 @@ public class MemberDao {
 		}
 	}
 	
-	public void deleteMember() {}
+	public void deleteMember(String uid) {
+		
+		try {
+			// 1단계
+			Class.forName("com.mysql.jdbc.Driver");
+			// 2단계
+			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
+			// 3단계
+			String sql = "DELETE FROM `MEMBER` WHERE `uid`=?";
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, uid);
+			// 4단계
+			psmt.executeUpdate();
+			// 5단계
+			// 6단계
+			conn.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
