@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,19 +21,22 @@
 			<th>부서</th>
 			<th>입사일</th>
 			<th>관리</th>
-		</tr>		
+		</tr>
+		
+		<c:forEach var="member" items="${members}">
 		<tr>
-			<th>a101</th>
-			<th>홍길동</th>
-			<th>010-1234-1111</th>
-			<th>사원</th>
-			<th>101</th>
-			<th>21-06-30</th>
+			<th>${member.uid}</th>
+			<th>${member.name}</th>
+			<th>${member.hp}</th>
+			<th>${member.pos}</th>
+			<th>${member.dep}</th>
+			<th>${member.rdate.substring(2, 10)}</th>
 			<th>
-				<a href="/Ch08/member/modify.do">수정</a>
+				<a href="/Ch08/member/modify.do?uid=${member.uid}">수정</a>
 				<a href="#">삭제</a>
 			</th>
 		</tr>
+		</c:forEach>
 	</table>
 	
 	
