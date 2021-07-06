@@ -3,6 +3,7 @@ package kr.co.jboard2.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,52 +22,24 @@ public class ArticleDao {
 		return instance;
 	}
 	
-	public int[] getPageGroup(int currentPage, int lastPageNum) {
+
+	
+	public int selectMaxSeq() {
+		int seq = 0;
 		
-		int groupCurrent = (int) Math.ceil(currentPage / 5.0);
-		int groupStart = (groupCurrent - 1) * 5 + 1;
-		int groupEnd = groupCurrent * 5;
-		
-		if(groupEnd > lastPageNum) {
-			groupEnd = lastPageNum;
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_SEQ);
+			
+			if(rs.next()) {
+				seq = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		int[] groups = {groupStart, groupEnd};
-		
-		return groups;
-		
-	}
-	
-	public int getPageStartNum(int total, int start) {
-		return total - start;
-	}
-	
-	public int getLimitStart(int currentPage) {
-		return (currentPage - 1) * 10;
-	}
-	
-	public int getCurrentPage(String pg) {
-		
-		int currentPage = 1;
-		
-		if(pg != null) {
-			currentPage = Integer.parseInt(pg);
-		}
-		
-		return currentPage;
-	}
-	
-	public int getLastPageNum(int total) {
-		
-		int lastPageNum = 0;
-		
-		if(total % 10 == 0){
-			lastPageNum = total / 10;
-		}else{
-			lastPageNum = total / 10 + 1;
-		}
-		
-		return lastPageNum;
+		return seq;
 	}
 	
 	public int selectCountArticle() {
@@ -98,7 +71,7 @@ public class ArticleDao {
 		return total;
 	}
 	
-	public void insertArticle(ArticleVo vo) {
+	public int insertArticle(ArticleVo vo) {
 		try{
 			// 1, 2 단계
 			Connection conn = DBConfig.getInstance().getConnection();
@@ -114,6 +87,8 @@ public class ArticleDao {
 			// 4 단계
 			psmt.executeUpdate();
 			
+			
+			
 			// 5 단계
 			// 6 단계
 			conn.close();
@@ -121,6 +96,8 @@ public class ArticleDao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		return selectMaxSeq();
 	}
 	
 	public void insertComment(ArticleVo comment) {
@@ -144,6 +121,28 @@ public class ArticleDao {
 			conn.close();
 			
 		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertFile(int seq, String fname, String newName) {
+		try {
+			// 1단계 , 2단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			// 3단계
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_FILE);
+			psmt.setInt(1, seq);
+			psmt.setString(2, fname);
+			psmt.setString(3, newName);
+			
+			// 4단계
+			psmt.executeUpdate();
+			
+			// 5단계
+			// 6단계
+			conn.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

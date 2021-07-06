@@ -1,5 +1,9 @@
 package kr.co.jboard2.service;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +14,8 @@ import kr.co.jboard2.dao.ArticleDao;
 import kr.co.jboard2.vo.ArticleVo;
 
 public class WriteService implements CommonService{
+	
+	private String path = null;
 
 	@Override
 	public String requestProc(HttpServletRequest req, HttpServletResponse resp) {
@@ -35,7 +41,8 @@ public class WriteService implements CommonService{
 			vo.setUid(uid);
 			vo.setRegip(regip);
 			
-			ArticleDao.getInstance().insertArticle(vo);
+			int seq = ArticleDao.getInstance().insertArticle(vo);
+			setFile(seq, fname, uid);
 			
 			return "redirect:/Jboard2/list.do";
 		}
@@ -47,7 +54,7 @@ public class WriteService implements CommonService{
 		
 		try {
 			// Multipart 전송 데이터 수신
-			String path = req.getServletContext().getRealPath("/file");
+			path = req.getServletContext().getRealPath("/file");
 			int maxSize = 1024 * 1024 * 10; // 최대 파일 허용 용량 10MB
 			mRequest = new MultipartRequest(req,
 											path,
@@ -60,4 +67,24 @@ public class WriteService implements CommonService{
 		return mRequest;
 	}//getMultipartRequest end...
 
-}
+	public void setFile(int seq, String fname,String uid) {
+		// 파일을 첨부 했으면
+		if(fname != null){
+			// 고유한 파일 이름 생성하기
+			int i = fname.lastIndexOf(".");
+			String ext = fname.substring(i);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss_");
+			String now = sdf.format(new Date());
+			String newName = now+uid+ext;
+			
+			// 파일명 수정 스트림 작업
+			File oriFile = new File(path+"/"+fname);
+			File newFile = new File(path+"/"+newName);
+			oriFile.renameTo(newFile);
+			
+			// 파일 테이블 INSERT 작업
+			ArticleDao.getInstance().insertFile(seq, fname, newName);
+		}
+	}
+}// Write Service end..

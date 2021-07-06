@@ -4,7 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <title>글보기</title>
-    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="/Jboard2/css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    	jQuery(function(){
+    		$('.btnCommentDel').click(function(){
+    			if(confirm('정말 삭제 하시겠습니까?')){
+    				return true;
+    			}else{
+    				return false;
+    			}
+    		});
+    		
+    		$('.btnCommentModify').click(function(){
+    			
+    			var btnThis = $(this);
+    			var mode = btnThis.text();
+    			var textarea = btnThis.parent().prev();
+    			
+    			if(mode == ' 수정'){
+    				// 수정모드
+    				
+    				$(this).text(' 완료');
+    				
+        			textarea.attr('readonly', false).focus();
+        			textarea.css('outline', '1px grey solid');
+        			
+    			}else{
+    				// 수정완료 모드
+    				var content = textarea.val();
+    				var seq = textarea.attr('data-seq');
+    				
+    				var jsonData = {'seq'     : seq,
+		    						'content' : content};
+    				
+    				$.ajax({
+    					url: '/JBoard1/proc/commentUpdate.jsp',
+    					type: 'post',
+    					data: jsonData,
+    					datatype: 'json',
+    					success: function(data){
+    						
+    						if(data.result == 1){
+    							textarea.attr('readonly', true);
+    							textarea.css('outline', 'none');
+    							btnThis.text(' 수정');
+    							
+    							alert('수정 완료!!!');
+    						}
+    					}
+    				});
+    				
+    			} 
+    			    			
+    			return false;
+    			
+    		});
+    		
+    	});
+    </script>
 </head>
 <body>
     <div id="wrapper">
