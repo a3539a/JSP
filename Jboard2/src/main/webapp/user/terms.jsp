@@ -32,8 +32,8 @@
                 </tr>
             </table>
             <div>
-                <a href="./login.html">취소</a>
-                <a href="./register.html">다음</a>
+                <a href="/Jboard2/user/login.do">취소</a>
+                <a href="/Jboard2/user/register.do">다음</a>
             </div>
         </section>
     </div>
