@@ -16,7 +16,7 @@ public class ModifyService implements CommonService {
 		req.setAttribute("group", group);
 		req.setAttribute("cate", cate);
 		
-		return "/modify.jsp";	
+		return "/board/modify.jsp";	
 
 	}
 
