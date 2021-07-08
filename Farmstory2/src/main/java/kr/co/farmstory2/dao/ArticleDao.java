@@ -42,6 +42,32 @@ public class ArticleDao {
 		return seq;
 	}
 	
+	public List<ArticleVo> selectLatests() {
+		
+		List<ArticleVo> latests = new ArrayList<>();
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_LATESTS);
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				ArticleVo article = new ArticleVo();
+				article.setSeq(rs.getInt(1));
+				article.setCate(rs.getString(4));
+				article.setTitle(rs.getString(5));
+				article.setRdate(rs.getString(11).substring(2, 10));
+				
+				latests.add(article);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return latests;
+	}
+	
+	
 	public int selectCountArticle(String cate) {
 		
 		int total = 0;
