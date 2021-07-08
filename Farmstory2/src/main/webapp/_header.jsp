@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,10 +32,17 @@
         <header>
             <a href="/Farmstory2/index.do" class="logo"><img src="/Farmstory2/img/logo.png" alt="로고"/></a>
             <p>
-                <a href="/Farmstory2/index.do">HOME |</a>
-                <a href="/Farmstory2/user/login.do">로그인 |</a>
-                <a href="/Farmstory2/user/terms.do">회원가입 |</a>
-                <a href="#">고객센터</a>
+            	<c:if test="${sessMember eq null}">
+                	<a href="/Farmstory2">HOME |</a>
+	                <a href="/Farmstory2/user/login.do">로그인 |</a>
+	                <a href="/Farmstory2/user/terms.do">회원가입 |</a>
+                </c:if>
+                <c:if test="${sessMember ne null}">
+                	<span>${sessMember.nick} 님 반갑습니다.</span>
+                	<a href="/Farmstory2">HOME |</a>
+                	<a href="/Farmstory2/user/logout.do">로그아웃 |</a>
+               	</c:if>
+                <a href="/Farmstory2/board/list.jsp?group=community&cate=qna">고객센터</a>
             </p>
             <img src="/Farmstory2/img/head_txt_img.png" alt="3만원 이상 무료배송"/>
             
