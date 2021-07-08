@@ -52,6 +52,7 @@ public class Sql {
 	public static final String SELECT_FILE = "SELECT * FROM `JBOARD_FILE` WHERE `seq`=?";
 	
 	public static final String INSERT_ARTICLE  = "INSERT INTO `JBOARD_ARTICLE` SET "
+											   + "`cate`=?,"
 											   + "`title`=?,"
 											   + "`content`=?,"
 											   + "`file`=?,"

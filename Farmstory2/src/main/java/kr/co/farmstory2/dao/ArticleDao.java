@@ -78,11 +78,12 @@ public class ArticleDao {
 			
 			// 3 단계
 			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_ARTICLE);
-			psmt.setString(1, vo.getTitle());
-			psmt.setString(2, vo.getContent());
-			psmt.setInt(3, vo.getFile());
-			psmt.setString(4, vo.getUid());
-			psmt.setString(5, vo.getRegip());
+			psmt.setString(1, vo.getCate());
+			psmt.setString(2, vo.getTitle());
+			psmt.setString(3, vo.getContent());
+			psmt.setInt(4, vo.getFile());
+			psmt.setString(5, vo.getUid());
+			psmt.setString(6, vo.getRegip());
 			
 			// 4 단계
 			psmt.executeUpdate();
