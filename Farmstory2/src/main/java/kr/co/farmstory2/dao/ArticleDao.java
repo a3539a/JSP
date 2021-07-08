@@ -42,7 +42,7 @@ public class ArticleDao {
 		return seq;
 	}
 	
-	public int selectCountArticle() {
+	public int selectCountArticle(String cate) {
 		
 		int total = 0;
 		
@@ -52,6 +52,7 @@ public class ArticleDao {
 			
 			// 3단계
 			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COUNT_ARTICLE);
+			psmt.setString(1, cate);
 			
 			// 4단계
 			ResultSet rs = psmt.executeQuery();
@@ -199,7 +200,7 @@ public class ArticleDao {
 		return article;
 	}
 	
-	public List<ArticleVo> selectArticles(int start) {
+	public List<ArticleVo> selectArticles(String cate, int start) {
 		
 		// 게시물 가져오기
 		List<ArticleVo> articles = new ArrayList<>();
@@ -210,7 +211,8 @@ public class ArticleDao {
 			
 			// 3단계
 			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_ARTICLES);
-			psmt.setInt(1, start);
+			psmt.setString(1, cate);
+			psmt.setInt(2, start);
 			
 			// 4단계
 			ResultSet rs = psmt.executeQuery();
